@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Video Forensics - Player</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Playback &amp; Face Crop</h1>
+      <p class="subtitle">
+        Video file: <strong>{{ video_filename }}</strong>
+      </p>
+      <div class="player-wrapper">
+        <div class="video-panel">
+          <video id="uploadedVideo" controls preload="auto">
+            <source src="{{ video_url }}" />
+            Your browser does not support HTML5 video playback.
+          </video>
+        </div>
+        <div class="face-panel">
+          <h2>Live Face Crop</h2>
+          <img
+            id="facePreview"
+            alt="Face preview"
+            width="256"
+            height="256"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="
+          />
+          <p class="face-hint">Updates as the video plays</p>
+        </div>
+      </div>
+      <a class="link-button" href="{{ url_for('upload_form') }}"
+        >Upload another video</a
+      >
+      <div class="analysis-panel">
+        <button id="analyzeBtn" class="secondary-button">Run Landmark Analysis</button>
+        <div id="analysisProgress" class="analysis-progress hidden">
+          <div class="analysis-progress-bar" id="analysisProgressBar"></div>
+        </div>
+        <div id="analysisResults" class="analysis-results hidden"></div>
+      </div>
+    </div>
+
+    <script>
+      window.livenessPlayerConfig = {
+        videoFilename: "{{ video_filename }}",
+        frameEndpoint: "{{ url_for('frame_crop') }}",
+        analysisEndpoint: "{{ url_for('analyze_video') }}",
+      };
+    </script>
+    <script src="{{ url_for('static', filename='js/player.js') }}"></script>
+  </body>
+</html>

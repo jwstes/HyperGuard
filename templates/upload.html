@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Video Forensics - Upload</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Deep Video Forensics</h1>
+      <p class="subtitle">
+        Upload a short video to analyze.
+      </p>
+      {% if error %}
+      <div class="message error">{{ error }}</div>
+      {% endif %}
+      <form
+        class="upload-form"
+        action="{{ url_for('upload') }}"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <label class="file-field">
+          <span>Select video file</span>
+          <input type="file" name="video" accept="video/*" required />
+        </label>
+        <button type="submit" class="primary-button">Upload</button>
+      </form>
+    </div>
+  </body>
+</html>
